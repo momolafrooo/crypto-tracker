@@ -1,7 +1,17 @@
-import React, { memo } from "react";
+import React, { memo, ReactNode } from "react";
 import AppBar from "@mui/material/AppBar";
-import { Container, FormControl, makeStyles, MenuItem, Select, Toolbar, Typography } from "@mui/material";
+import {
+  Container,
+  FormControl,
+  makeStyles,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled(Typography)(({ theme }) => ({
   textTransform: "uppercase",
@@ -10,14 +20,32 @@ const Title = styled(Typography)(({ theme }) => ({
 }));
 
 const Header = memo(() => {
+  const navigate = useNavigate();
+  const [currency, setCurrency] = React.useState("USD");
+
+  const handleChange = (event: SelectChangeEvent<string>, child: ReactNode) => {
+    setCurrency(event.target.value);
+  };
+
+  const goToHome = React.useCallback(() => {
+    navigate("/");
+  }, []);
+
   return (
     <AppBar color="transparent" position="static">
       <Container>
         <Toolbar style={{ padding: 0, display: "flex", justifyContent: "space-between" }}>
-          <Title variant="h6">Crypto Tracker</Title>
+          <Title variant="h6" onClick={goToHome}>
+            Crypto Tracker
+          </Title>
 
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <Select value="USD" onChange={() => {}} displayEmpty inputProps={{ "aria-label": "Without label" }}>
+          <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
+            <Select
+              value={currency}
+              onChange={handleChange}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
+            >
               <MenuItem value="USD">USD</MenuItem>
               <MenuItem value="EURO">EURO</MenuItem>
             </Select>
