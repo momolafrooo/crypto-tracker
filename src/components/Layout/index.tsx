@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import React, { memo } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Header";
@@ -9,9 +8,9 @@ const Layout = memo(({}: LayoutProps) => {
   return (
     <>
       <Header />
-      <Container>
+      <div>
         <Outlet />
-      </Container>
+      </div>
     </>
   );
 });
