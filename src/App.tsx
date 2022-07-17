@@ -1,7 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./pages/home";
+import Details from "./pages/Details";
+import Home from "./pages/Home";
 
 const darkTheme = createTheme({
   palette: {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/coins/:id" element={<Details />} />
         </Route>
       </Routes>
     </ThemeProvider>

@@ -1,19 +1,7 @@
 import React, { memo } from "react";
 import styled from "@emotion/styled";
 import { Container, Typography } from "@mui/material";
-import AliceCarousel from "react-alice-carousel";
 import Slider from "../Slider";
-
-const responsive = {
-  0: {
-    items: 2,
-  },
-  512: {
-    items: 4,
-  },
-};
-
-const items: any[] | undefined = [];
 
 const Banner = memo(() => {
   return (
