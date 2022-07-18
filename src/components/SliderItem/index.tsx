@@ -1,22 +1,32 @@
 import styled from "@emotion/styled";
 import React, { memo } from "react";
+import { formatPrice } from "../../utils";
 
 interface Props {
   logo: string;
   name: string;
-  profit: number;
-  price: number;
+  profit: string;
+  price: string;
+  currency: string;
 }
 
 const SliderItem = memo((props: Props) => {
-  const { logo, name, profit, price } = props;
+  const { logo, name, profit, price, currency = "$" } = props;
   return (
     <Wrapper>
       <Logo src={logo} height={80} alt={name} />
       <Name>
-        {name} <strong>{profit}%</strong>
+        {name.toUpperCase()}{" "}
+        <strong
+          style={{
+            color: Number(profit) > 0 ? "rgb(14, 203, 129)" : "red",
+            fontWeight: 500,
+          }}
+        >
+          {Number(profit) > 0 ? "+" + profit : "-" + profit}%
+        </strong>
       </Name>
-      <Price>$ {price}</Price>
+      <Price>{formatPrice(Number(price))}</Price>
     </Wrapper>
   );
 });

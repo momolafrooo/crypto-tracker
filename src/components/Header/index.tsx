@@ -12,10 +12,16 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../../store";
+import shallow from "zustand/shallow";
 
 const Header = memo(() => {
   const navigate = useNavigate();
-  const [currency, setCurrency] = React.useState("USD");
+
+  const { currency, setCurrency } = useStore(
+    (state) => ({ currency: state.currencyCode, setCurrency: state.setCurrency }),
+    shallow
+  );
 
   const handleChange = (event: SelectChangeEvent<string>, child: ReactNode) => {
     setCurrency(event.target.value);
@@ -41,7 +47,7 @@ const Header = memo(() => {
               inputProps={{ "aria-label": "Without label" }}
             >
               <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EURO">EURO</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
             </Select>
           </FormControl>
         </Toolbar>
