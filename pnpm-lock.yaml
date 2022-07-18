@@ -8,8 +8,10 @@ specifiers:
   '@types/react-dom': ^18.0.6
   '@types/react-html-parser': ^2.0.2
   '@vitejs/plugin-react': ^2.0.0
+  chart.js: ^3.8.0
   react: ^18.2.0
   react-alice-carousel: ^2.6.1
+  react-chartjs-2: ^4.3.1
   react-dom: ^18.2.0
   react-html-parser: ^2.0.2
   react-router-dom: '6'
@@ -20,8 +22,10 @@ dependencies:
   '@emotion/react': 11.9.3_3hx2ussxxho4jajbwrd6gq34qe
   '@emotion/styled': 11.9.3_t4da3hocwt6ljcf3o6em4qwqzm
   '@mui/material': 5.9.0_bl6qrq6463ovzmqn4cmwv7vydq
+  chart.js: 3.8.0
   react: 18.2.0
   react-alice-carousel: 2.6.1_react@18.2.0
+  react-chartjs-2: 4.3.1_yw232gbma4xqgfjmup6t23g3w4
   react-dom: 18.2.0_react@18.2.0
   react-html-parser: 2.0.2_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
@@ -737,6 +741,10 @@ packages:
       escape-string-regexp: 1.0.5
       supports-color: 5.5.0
 
+  /chart.js/3.8.0:
+    resolution: {integrity: sha512-cr8xhrXjLIXVLOBZPkBZVF6NDeiVIrPLHcMhnON7UufudL+CNeRrD+wpYanswlm8NpudMdrt3CHoLMQMxJhHRg==}
+    dev: false
+
   /clsx/1.2.1:
     resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
     engines: {node: '>=6'}
@@ -1242,6 +1250,16 @@ packages:
     dependencies:
       react: 18.2.0
       vanilla-swipe: 2.4.0
+    dev: false
+
+  /react-chartjs-2/4.3.1_yw232gbma4xqgfjmup6t23g3w4:
+    resolution: {integrity: sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA==}
+    peerDependencies:
+      chart.js: ^3.5.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      chart.js: 3.8.0
+      react: 18.2.0
     dev: false
 
   /react-dom/18.2.0_react@18.2.0:

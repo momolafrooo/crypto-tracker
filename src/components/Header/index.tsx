@@ -13,12 +13,6 @@ import {
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
-const Title = styled(Typography)(({ theme }) => ({
-  textTransform: "uppercase",
-  color: "gold",
-  fontWeight: "bold",
-}));
-
 const Header = memo(() => {
   const navigate = useNavigate();
   const [currency, setCurrency] = React.useState("USD");
@@ -57,3 +51,10 @@ const Header = memo(() => {
 });
 
 export default Header;
+
+const Title = styled(Typography)(({ theme }) => ({
+  textTransform: "uppercase",
+  color: "gold",
+  fontWeight: "bold",
+  cursor: "pointer",
+}));
