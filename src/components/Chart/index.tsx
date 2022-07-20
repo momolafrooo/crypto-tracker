@@ -13,55 +13,48 @@ import {
   Legend,
 } from "chart.js";
 import SelectButton from "../SelectButton";
+import { useStore } from "../../store";
+import useSWR from "swr";
+import { ECurrencies, fetcher } from "../../utils";
+import { Chart as IChart, HistoricalChart } from "../../api";
+import { useParams } from "react-router-dom";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Chart = memo(() => {
-  const [select, setSelect] = React.useState(1);
+  const { id } = useParams();
+  const [days, onSelectDays] = React.useState(1);
+  const currency = useStore((state) => state.currencyCode);
+  const { data: history } = useSWR<IChart>(HistoricalChart(id!, days, currency), fetcher);
+
+  const data = React.useMemo(() => {
+    if (!history) return [];
+
+    return history.prices.map((price) => price[1]);
+  }, [history]);
+
+  const labels = React.useMemo(() => {
+    if (!history) return [];
+
+    return history.prices.map((price) => {
+      let date = new Date(price[0]);
+      let time =
+        date.getHours() > 12
+          ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+          : `${date.getHours()}:${date.getMinutes()} AM`;
+      return days === 1 ? time : date.toLocaleDateString();
+    });
+  }, [history]);
+
   return (
     <Wrapper>
       <Line
         data={{
-          labels: [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-          ],
-
+          labels,
           datasets: [
             {
-              data: [
-                65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56,
-                55, 40, 65, 59, 80, 81, 56, 55, 40,
-              ],
-              label: `Price ( Past ${"635"} Days ) in ${"$"}`,
+              data,
+              label: `Price ( Past ${days} Days ) in ${ECurrencies[currency as keyof typeof ECurrencies]}`,
               borderColor: "#EEBC1D",
             },
           ],
@@ -74,7 +67,7 @@ const Chart = memo(() => {
           },
         }}
       />
-      <SelectButton onSelect={setSelect} select={select} />
+      <SelectButton onSelect={onSelectDays} select={days} />
     </Wrapper>
   );
 });

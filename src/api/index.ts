@@ -40,3 +40,7 @@ export interface SingleCoin {
     };
   };
 }
+
+export interface Chart {
+  prices: Array<any>;
+}
