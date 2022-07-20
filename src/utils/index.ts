@@ -16,9 +16,9 @@ export enum ECurrencies {
 
 export const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-export const formatPrice = (price: number) => {
+export const formatPrice = (price: string) => {
   const { getState, setState, subscribe, destroy } = useStore;
   const currencyCode = getState().currencyCode;
 
-  return new Intl.NumberFormat(undefined, { style: "currency", currency: currencyCode }).format(price);
+  return new Intl.NumberFormat(undefined, { style: "currency", currency: currencyCode }).format(Number(price));
 };

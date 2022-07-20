@@ -7,11 +7,10 @@ interface Props {
   name: string;
   profit: string;
   price: string;
-  currency: string;
 }
 
 const SliderItem = memo((props: Props) => {
-  const { logo, name, profit, price, currency = "$" } = props;
+  const { logo, name, profit, price } = props;
   return (
     <Wrapper>
       <Logo src={logo} height={80} alt={name} />
@@ -23,10 +22,10 @@ const SliderItem = memo((props: Props) => {
             fontWeight: 500,
           }}
         >
-          {Number(profit) > 0 ? "+" + profit : "-" + profit}%
+          {Number(profit) > 0 ? "+" + profit : profit}%
         </strong>
       </Name>
-      <Price>{formatPrice(Number(price))}</Price>
+      <Price>{formatPrice(price)}</Price>
     </Wrapper>
   );
 });
