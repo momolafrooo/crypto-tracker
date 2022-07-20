@@ -2,28 +2,40 @@ import React, { memo } from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
+import { fetcher, formatPrice } from "../../utils";
+import { useParams } from "react-router-dom";
+import { SingleCoin } from "../../api";
+import useSWR from "swr";
+import { useStore } from "../../store";
+import shallow from "zustand/shallow";
 
 const Sidebar = memo(() => {
+  const { id } = useParams();
+  const { data: coin } = useSWR<SingleCoin>(SingleCoin(id!), fetcher);
+
+  const { currency } = useStore((state) => ({ currency: state.currencyCode }), shallow);
+
   return (
     <Wrapper>
       <Header>
-        <Logo src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" />
-        <Title variant="h3">Bitcoin</Title>
+        <Logo src={coin?.image?.large} />
+        <Title variant="h3">{coin?.name}</Title>
       </Header>
-      <Description variant="subtitle1">
-        {ReactHtmlParser(
-          "Bitcoin is the first successful internet money based on peer-to-peer technology; whereby no central bank or authority is involved in the transaction and production of the Bitcoin currency."
-        )}
-      </Description>
+      <Description variant="subtitle1">{ReactHtmlParser(coin?.description?.en?.split(".")[0] || "")}</Description>
       <Infos>
         <InfoItem>
-          <Label variant="h5">Rank:</Label> <Value variant="h5">1</Value>
+          <Label variant="h5">Rank:</Label>{" "}
+          <Value variant="h5">{formatPrice(coin?.market_cap_rank?.toString() || "0")}</Value>
         </InfoItem>
         <InfoItem>
-          <Label variant="h5">Current Price:</Label> <Value variant="h5">$ 45.093.333</Value>
+          <Label variant="h5">Current Price:</Label>{" "}
+          <Value variant="h5">{formatPrice(coin?.market_data?.current_price[currency.toLowerCase()] || "0")}</Value>
         </InfoItem>
         <InfoItem>
-          <Label variant="h5">Market Cap:</Label> <Value variant="h5">$ 45.093.333</Value>
+          <Label variant="h5">Market Cap:</Label>{" "}
+          <Value variant="h5">
+            {formatPrice(coin?.market_data?.market_cap[currency.toLowerCase()]?.toString()?.slice(0, -6) || "0")}M
+          </Value>
         </InfoItem>
       </Infos>
     </Wrapper>

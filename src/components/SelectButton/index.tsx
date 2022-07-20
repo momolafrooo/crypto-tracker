@@ -13,6 +13,7 @@ const SelectButton = memo(({ onSelect, select }: Props) => {
     <Wrapper>
       {chartDays.map(({ label, value }) => (
         <Button
+          key={value}
           variant={select === value ? "contained" : "outlined"}
           style={{
             background: select === value ? "gold" : "transparent",

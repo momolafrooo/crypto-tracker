@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import styled from "@emotion/styled";
 import { Coin } from "../../api";
 import { formatPrice } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 interface TableProps {
   data: Coin[];
@@ -17,6 +18,7 @@ interface TableProps {
 }
 
 const CustomTable = memo(({ data, page = 1, setPage }: TableProps) => {
+  const navigate = useNavigate();
   return (
     <>
       <TableContainer component={Paper}>
@@ -31,7 +33,11 @@ const CustomTable = memo(({ data, page = 1, setPage }: TableProps) => {
           </TableHead>
           <TableBody>
             {data.slice((page - 1) * 10, (page - 1) * 10 + 10).map((coin: Coin) => (
-              <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableRow
+                key={coin.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 }, cursor: "pointer" }}
+                onClick={() => navigate(`/coins/${coin.id}`)}
+              >
                 <TableCell component="th" style={{ display: "flex", gap: 15 }} scope="row">
                   <img src={coin.image} alt={coin.name} height="50" style={{ marginBottom: 10 }} />
                   <div style={{ display: "flex", flexDirection: "column" }}>

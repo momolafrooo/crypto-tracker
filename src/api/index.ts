@@ -14,7 +14,29 @@ export interface Coin {
   image: string;
   name: string;
   symbol: string;
+
   price_change_percentage_24h: number;
   current_price: number;
   market_cap: number;
+}
+
+export interface SingleCoin {
+  id: string;
+  name: string;
+  description: {
+    en: string;
+  };
+  image: {
+    small: string;
+    large: string;
+  };
+  market_cap_rank: number;
+  market_data: {
+    current_price: {
+      [key: string]: string;
+    };
+    market_cap: {
+      [key: string]: string;
+    };
+  };
 }
