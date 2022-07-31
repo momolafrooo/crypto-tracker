@@ -18,6 +18,7 @@ import useSWR from "swr";
 import { ECurrencies, fetcher } from "../../utils";
 import { Chart as IChart, HistoricalChart } from "../../api";
 import { useParams } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -25,7 +26,7 @@ const Chart = memo(() => {
   const { id } = useParams();
   const [days, onSelectDays] = React.useState(1);
   const currency = useStore((state) => state.currencyCode);
-  const { data: history } = useSWR<IChart>(HistoricalChart(id!, days, currency), fetcher);
+  const { data: history, isValidating } = useSWR<IChart>(HistoricalChart(id!, days, currency), fetcher);
 
   const data = React.useMemo(() => {
     if (!history) return [];
@@ -45,6 +46,10 @@ const Chart = memo(() => {
       return days === 1 ? time : date.toLocaleDateString();
     });
   }, [history]);
+
+  if (isValidating) {
+    return <CircularProgress />;
+  }
 
   return (
     <Wrapper>

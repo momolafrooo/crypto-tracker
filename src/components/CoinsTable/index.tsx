@@ -1,4 +1,4 @@
-import { Container, styled, TextField, Typography } from "@mui/material";
+import { Container, LinearProgress, styled, TextField, Typography } from "@mui/material";
 import React, { memo } from "react";
 import useSWR from "swr";
 import { Coin, CoinList } from "../../api";
@@ -10,7 +10,7 @@ interface CoinsTableProps {}
 
 const CoinsTable = memo(({}: CoinsTableProps) => {
   const currency = useStore((state) => state.currencyCode);
-  const { data = [] } = useSWR<Coin[]>(CoinList(currency), fetcher);
+  const { data = [], isValidating } = useSWR<Coin[]>(CoinList(currency), fetcher);
   const [page, setPage] = React.useState(1);
   const [coins, setCoins] = React.useState<Coin[]>([]);
 
@@ -39,7 +39,11 @@ const CoinsTable = memo(({}: CoinsTableProps) => {
         style={{ marginBottom: 20, width: "100%" }}
         onChange={handleSearch}
       />
-      <CustomTable data={coins} page={page} setPage={setPage} />
+      {isValidating ? (
+        <LinearProgress style={{ backgroundColor: "#EEBC1D", borderRadius: 20 }} />
+      ) : (
+        <CustomTable data={coins} page={page} setPage={setPage} />
+      )}
     </Container>
   );
 });

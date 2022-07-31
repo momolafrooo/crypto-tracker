@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import styled from "@emotion/styled";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
 import { fetcher, formatPrice } from "../../utils";
 import { useParams } from "react-router-dom";
@@ -11,9 +11,13 @@ import shallow from "zustand/shallow";
 
 const Sidebar = memo(() => {
   const { id } = useParams();
-  const { data: coin } = useSWR<SingleCoin>(SingleCoin(id!), fetcher);
+  const { data: coin, isValidating } = useSWR<SingleCoin>(SingleCoin(id!), fetcher);
 
   const { currency } = useStore((state) => ({ currency: state.currencyCode }), shallow);
+
+  if (isValidating) {
+    return <CircularProgress />;
+  }
 
   return (
     <Wrapper>
