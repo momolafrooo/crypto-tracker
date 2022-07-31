@@ -46,6 +46,9 @@ export default Sidebar;
 
 const Wrapper = styled("div")(({ theme }) => ({
   borderRight: "1px solid #e0e0e0",
+  "@media screen and (max-width:890px)": {
+    border: "none",
+  },
 }));
 
 const Header = styled("div")(({ theme }) => ({
@@ -58,11 +61,17 @@ const Header = styled("div")(({ theme }) => ({
 const Logo = styled("img")(({ theme }) => ({
   height: 200,
   marginBottom: 20,
+  "@media screen and (max-width:445px)": {
+    height: 140,
+  },
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
   marginBottom: "20px",
+  "@media screen and (max-width:445px)": {
+    fontSize: "25px",
+  },
 }));
 
 const Description = styled(Typography)(({ theme }) => ({
@@ -70,6 +79,9 @@ const Description = styled(Typography)(({ theme }) => ({
   marginBottom: 30,
   paddingTop: 0,
   textAlign: "justify",
+  "@media screen and (max-width:445px)": {
+    fontSize: "14px",
+  },
 }));
 
 const Infos = styled("div")(({ theme }) => ({}));
@@ -82,6 +94,13 @@ const InfoItem = styled("div")(({ theme }) => ({
 const Label = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
   marginBottom: "20px",
+  "@media screen and (max-width:445px)": {
+    fontSize: "20px",
+  },
 }));
 
-const Value = styled(Typography)(({ theme }) => ({}));
+const Value = styled(Typography)(({ theme }) => ({
+  "@media screen and (max-width:445px)": {
+    fontSize: "20px",
+  },
+}));

@@ -1,4 +1,4 @@
-import { Container, TextField, Typography } from "@mui/material";
+import { Container, styled, TextField, Typography } from "@mui/material";
 import React, { memo } from "react";
 import useSWR from "swr";
 import { Coin, CoinList } from "../../api";
@@ -21,6 +21,7 @@ const CoinsTable = memo(({}: CoinsTableProps) => {
       );
 
       setCoins(filteredData);
+      setPage(1);
     },
     [data]
   );
@@ -31,9 +32,7 @@ const CoinsTable = memo(({}: CoinsTableProps) => {
 
   return (
     <Container>
-      <Typography variant="h4" style={{ margin: 18, fontFamily: "Montserrat", textAlign: "center" }}>
-        Cryptocurrency Prices by Market Cap
-      </Typography>
+      <Title variant="h4">Cryptocurrency Prices by Market Cap</Title>
       <TextField
         label="Search For a Crypto Currency.."
         variant="outlined"
@@ -46,3 +45,13 @@ const CoinsTable = memo(({}: CoinsTableProps) => {
 });
 
 export default CoinsTable;
+
+const Title = styled(Typography)(({ theme }) => ({
+  margin: 18,
+  fontFamily: "Montserrat",
+  textAlign: "center",
+  "@media screen and (max-width:637px)": {
+    fontSize: "1.3rem",
+    textAlign: "center",
+  },
+}));

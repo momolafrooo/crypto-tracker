@@ -63,4 +63,7 @@ const Title = styled(Typography)(({ theme }) => ({
   color: "gold",
   fontWeight: "bold",
   cursor: "pointer",
+  "@media screen and (max-width:637px)": {
+    fontSize: "16px",
+  },
 }));

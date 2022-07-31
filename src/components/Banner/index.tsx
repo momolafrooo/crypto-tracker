@@ -37,6 +37,10 @@ const Title = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
   textTransform: "uppercase",
   marginTop: "2rem",
+  "@media screen and (max-width:637px)": {
+    fontSize: "2.75rem",
+    textAlign: "center",
+  },
 }));
 
 const Subtitle = styled(Typography)(({ theme }) => ({

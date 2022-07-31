@@ -19,4 +19,10 @@ const Wrapper = styled("div")(({ theme }) => ({
   gridTemplateColumns: "400px 1fr",
   gap: "1rem",
   padding: 50,
+  "@media screen and (max-width:890px)": {
+    display: "block",
+  },
+  "@media screen and (max-width:445px)": {
+    padding: 20,
+  },
 }));

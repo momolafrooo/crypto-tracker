@@ -81,4 +81,7 @@ const Wrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
   padding: 40,
   width: "100%",
+  "@media screen and (max-width:890px)": {
+    padding: 0,
+  },
 }));
